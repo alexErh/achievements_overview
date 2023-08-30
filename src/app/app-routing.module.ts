@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+//TODO: add new routs after new views are done
 const routes: Routes = [
   {
     path: 'home',
