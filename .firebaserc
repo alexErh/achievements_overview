@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "achievements-overview": {
+      "hosting": {
+        "app": [
+          "achievements-overview"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "achievements-overview"
+  }
+}
