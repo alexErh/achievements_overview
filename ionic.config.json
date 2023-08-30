@@ -1,0 +1,7 @@
+{
+  "name": "achievements_overview",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
