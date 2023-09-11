@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>achievement-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let achievement of achievements; let i = index;">
+      <ion-item button (click)="getAll()">
+        <div slot="start">
+          <ion-text>{{achievement.moduleName}}</ion-text><br>
+          <ion-text>{{achievement.moduleCode}} {{achievement.moduleCrp}}Crp</ion-text>
+        </div>
+        <ion-text slot="end">{{achievement.grade}}%</ion-text>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

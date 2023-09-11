@@ -8,8 +8,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'achievement-list',
     pathMatch: 'full'
+  },
+  {
+    path: 'achievement-list',
+    loadChildren: () => import('./achievement/achievement-list/achievement-list.module').then( m => m.AchievementListPageModule)
   },
 ];
 

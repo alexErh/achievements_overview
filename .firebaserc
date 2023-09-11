@@ -6,9 +6,16 @@
           "achievements-overview"
         ]
       }
+    },
+    "ema-leistungen": {
+      "hosting": {
+        "app": [
+          "ema-leistungen"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "achievements-overview"
+    "default": "ema-leistungen"
   }
 }
