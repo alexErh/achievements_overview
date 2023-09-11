@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'achievement-list',
     loadChildren: () => import('./achievement/achievement-list/achievement-list.module').then( m => m.AchievementListPageModule)
   },
+  {
+    path: 'achievement-details',
+    loadChildren: () => import('./achievement/achievement-details/achievement-details.module').then( m => m.AchievementDetailsPageModule)
+  },
 ];
 
 @NgModule({

@@ -11,16 +11,24 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let achievement of achievements; let i = index;">
-      <ion-item button (click)="getAll()">
-        <div slot="start">
+      <ion-item class="item-content" button (click)="getAll()">
+        <div class="start-content">
           <ion-text>{{achievement.moduleName}}</ion-text><br>
           <ion-text>{{achievement.moduleCode}} {{achievement.moduleCrp}}Crp</ion-text>
         </div>
-        <ion-text slot="end">{{achievement.grade}}%</ion-text>
+        <div class="end-content">
+          <ion-text>{{achievement.grade}}%</ion-text>
+        </div>
       </ion-item>
       <ion-item-options>
         <ion-item-option></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button button (click)="navigateToCreateView()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

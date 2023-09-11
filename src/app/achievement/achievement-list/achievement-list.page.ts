@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AchievementService } from '../achievement.service';
 import { Achievement } from '../achievement.model';
 
@@ -12,9 +13,14 @@ export class AchievementListPage{
   public achievements: Achievement[] = [];
 
   constructor(
+    private router: Router,
     private achievementService: AchievementService
   ) {
     this.getAll();
+  }
+
+  public navigateToCreateView(): void {
+    this.router.navigate(['achievement-details']);
   }
 
   public refresh(event: any) {

@@ -1,0 +1,14 @@
+.item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.start-content {
+    flex: 1;
+}
+
+.end-content {
+    white-space: nowrap;
+}

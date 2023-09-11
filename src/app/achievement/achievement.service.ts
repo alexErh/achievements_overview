@@ -22,7 +22,7 @@ export class AchievementService {
     });
 
     if (this.achievements.length > 1) {
-      this.achievements.sort((achi_1, achi_2) => achi_1.moduleName.localeCompare(achi_2.moduleName))
+      this.achievements.sort((achi_1, achi_2) => achi_1.moduleName!.localeCompare(achi_2.moduleName!))
     }
   }
 
@@ -34,6 +34,7 @@ export class AchievementService {
     return Promise.resolve(this.achievements.find(a => a.id == id));
   }
 
+  //create
   public post(achievement: Achievement): Promise<DocumentData> {
     this.achievements.push(achievement);
     return addDoc(this.achievementsRef, {
@@ -47,6 +48,7 @@ export class AchievementService {
     });
   }
 
+  //update
   public put(achievement: Achievement): Promise<void> {
     const index = this.achievements.findIndex(a => a.id === achievement.id);
     if (index > -1) {
@@ -54,7 +56,7 @@ export class AchievementService {
 
       
     }
-    const achievementRef = doc(this.achievementsRef, achievement.id);
+    const achievementRef = doc(this.achievementsRef, achievement.id!);
       return updateDoc(achievementRef, {
         moduleCode: achievement.moduleCode,
         moduleName: achievement.moduleName,

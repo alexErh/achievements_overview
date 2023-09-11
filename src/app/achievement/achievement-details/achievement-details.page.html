@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>achievement-details</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input 
+      type="text" 
+      label="Modulname"
+      labelPlacement="floating"
+      fill="solid"
+      maxlength="50"
+      counter="true"
+      required
+      placeholder="z.B.: Objektorientierte Programmierung"
+      [(ngModel)]="achievement.moduleName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      type="text" 
+      label="Modulcode"
+      labelPlacement="floating"
+      fill="solid"
+      maxlength="10"
+      counter="true"
+      required
+      placeholder="z.B.: CS1013"
+      [(ngModel)]="achievement.moduleCode"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox [(ngModel)]="achievement.wp">Wahlpflichtmodul</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      type="number" 
+      label="Anzahl CrP"
+      labelPlacement="floating"
+      fill="solid"
+      counter="true"
+      required
+      placeholder="z.B.: 6"
+      [(ngModel)]="achievement.moduleCrp"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox [(ngModel)]="achievement.halfWeighted">50%-Leistung</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-select 
+      label="Jahr" 
+      required
+      interface="popover" 
+      placeholder="Jahren zum Auswahl"
+      [(ngModel)]="achievement.year">
+        <ion-select-option *ngFor="let year of this.years">{{year}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox [(ngModel)]="achievement.summerSem">Sommersemester</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      type="number" 
+      label="Punkte in %"
+      labelPlacement="floating"
+      fill="solid"
+      counter="true"
+      required
+      placeholder="z.B.: 86"
+      [(ngModel)]="achievement.grade"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="checkAndSave()" expand="block" shape="round">
+    Speichern
+  </ion-button>
+</ion-content>
