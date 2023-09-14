@@ -23,6 +23,10 @@ export class AchievementListPage{
     this.achievementService.getAchievements().then(() => this.getAll());
   }
 
+  ionViewWillEnter() {
+    this.getAll()
+  }
+
   public navigateToCreateView(): void {
     this.router.navigate(['achievement-details']);
   }
@@ -30,7 +34,6 @@ export class AchievementListPage{
   public refresh(event: any): void {
     setTimeout(() => {
       this.getAll();
-      this.stats = new StatisticData(this.achievements);
       event.target.complete();
     }, 2000);
   }
@@ -40,6 +43,27 @@ export class AchievementListPage{
       this.achievements = res;
       this.stats = new StatisticData(res);
     });
+  }
+
+  public async delete(index: number) {
+    const alert = await this.alertController.create({
+      header: 'Warnung',
+      message: 'Wollen Sie wirklich diese Leistung löschen?',
+      buttons: [
+        {
+          text: 'NEIN',
+          role: 'cancel'
+        },
+        {
+          text: 'JA',
+          handler: () => {
+            this.achievementService.delete(index);
+            this.getAll();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   public async schowStats(): Promise<void> {

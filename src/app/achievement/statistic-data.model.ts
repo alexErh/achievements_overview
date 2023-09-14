@@ -29,8 +29,7 @@ export class StatisticData {
 
     //TODO:
     private averageGradeCalc(): number {
-
-        if (this.achievements.length > 0) {
+        if (this.achievements.length > 1) {
             const hwGradesSum: number = this.achievements
             .filter((a) => a.halfWeighted === true)
             .reduce((acc, cur) => acc + (cur.grade ?? 0) * (cur.moduleCrp ?? 0) / 2, 0);
@@ -47,8 +46,10 @@ export class StatisticData {
             .filter((a) => a.halfWeighted === false)
             .reduce((acc, cur) => acc + (cur.moduleCrp ?? 0), 0);
 
-            return Math.round((hwGradesSum + nonHWGradesSum) / (hwCrpSum + nonHWCrpSum));
+            return hwCrpSum + nonHWCrpSum === 0 ? 0 : Math.round((hwGradesSum + nonHWGradesSum) / (hwCrpSum + nonHWCrpSum));
 
+        }else if (this.achievements.length === 1){
+            return this.achievements[0].grade!;
         }
         return 0;
     }

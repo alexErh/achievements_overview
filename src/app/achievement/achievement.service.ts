@@ -23,9 +23,7 @@ export class AchievementService {
       this.achievements.push({...achievementDoc.data(), id: achievementDoc.id} as Achievement);
     });
 
-    if (this.achievements.length > 1) {
-      this.achievements.sort((achi_1, achi_2) => achi_1.moduleName!.localeCompare(achi_2.moduleName!))
-    }
+    this.arrangeAlphabetically();
   }
 
   public getAll(): Promise<Achievement[]> {
@@ -39,6 +37,7 @@ export class AchievementService {
   //create
   public post(achievement: Achievement): Promise<DocumentData> {
     this.achievements.push(achievement);
+    this.arrangeAlphabetically();
     return addDoc(this.achievementsRef, {
       moduleCode: achievement.moduleCode,
       moduleName: achievement.moduleName,
@@ -55,8 +54,7 @@ export class AchievementService {
     const index = this.achievements.findIndex(a => a.id === achievement.id);
     if (index > -1) {
       this.achievements[index] = achievement;
-
-      
+      this.arrangeAlphabetically();      
     }
     const achievementRef = doc(this.achievementsRef, achievement.id!);
       return updateDoc(achievementRef, {
@@ -70,13 +68,19 @@ export class AchievementService {
       });
   }
 
-  public delete(id: string): Promise<void> {
-    const index = this.achievements.findIndex(a => a.id = id);
+  public delete(index: number): Promise<void> {
+    const id: string = this.achievements[index].id!;
     if (index > -1) {
-      this.achievements.splice(index);
+      this.achievements.splice(index, 1);
     }
 
     const achievementRef = doc(this.achievementsRef, id);
     return deleteDoc(achievementRef);
+  }
+
+  private arrangeAlphabetically(): void {
+    if (this.achievements.length > 1) {
+      this.achievements = this.achievements.sort((achi_1, achi_2) => achi_1.moduleName!.localeCompare(achi_2.moduleName!))
+    }
   }
 }

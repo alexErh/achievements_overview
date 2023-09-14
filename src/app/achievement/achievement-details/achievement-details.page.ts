@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { AlertController, NavController } from '@ionic/angular';
 import { Achievement } from '../achievement.model';
 import { AchievementService } from '../achievement.service';
 
@@ -17,7 +16,7 @@ export class AchievementDetailsPage implements OnInit {
   constructor(
     private achievementService: AchievementService,
     private alertController: AlertController,
-    private router: Router
+    private navController: NavController,
   ) {
     this.getYears();
   }
@@ -42,7 +41,8 @@ export class AchievementDetailsPage implements OnInit {
     errMessage += this.achievement.year !== null ? "" : "Jahr, ";
     errMessage += this.achievement.grade !== null && this.achievement.grade >= 0 && this.achievement.grade <= 100 ? "" : "Punkte, ";
     const actualLength: number = errMessage.length;
-    if (actualLength-initLength > 0) {
+
+    if (actualLength-initLength > 0) {  
       const alert = await this.alertController.create({
         header: 'Fehler',
         message: errMessage,
@@ -50,8 +50,31 @@ export class AchievementDetailsPage implements OnInit {
       });
       await alert.present();
     } else {
+      this.achievement.halfWeighted = this.achievement.halfWeighted !== true ? false : true;
+      this.achievement.summerSem = this.achievement.summerSem !== true ? false : true;
       this.achievementService.post(this.achievement);
-      this.router.navigate(['achievement-list']);
+      this.navController.pop();
     }
+  }
+
+  public async delete(index: number) {
+    const alert = await this.alertController.create({
+      header: 'Warnung',
+      message: 'Wollen Sie wirklich diese Leistung löschen?',
+      buttons: [
+        {
+          text: 'NEIN',
+          role: 'cancel'
+        },
+        {
+          text: 'JA',
+          handler: () => {
+            this.achievementService.delete(index);
+            this.navController.pop();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
