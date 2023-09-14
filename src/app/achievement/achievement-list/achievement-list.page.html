@@ -9,12 +9,26 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <ion-item class="item-stats-content">
+    <div class="stats-start-content">
+      <ion-text >Gesamtnote aus <b>{{this.stats!.achievementCount}}</b> Leistungen:</ion-text>
+      <br>
+      <ion-button class="details-button" fill="clear" (click)="this.schowStats()">
+        <ion-icon slot="start" name="analytics-outline"></ion-icon>
+        Details
+      </ion-button>
+    </div>
+    <div class="stats-end-content">
+      <ion-text><b>{{this.stats!.averageGrade}}%</b></ion-text>
+    </div>
+  </ion-item>
+
   <ion-list>
     <ion-item-sliding *ngFor="let achievement of achievements; let i = index;">
       <ion-item class="item-content" button (click)="getAll()">
         <div class="start-content">
           <ion-text>{{achievement.moduleName}}</ion-text><br>
-          <ion-text>{{achievement.moduleCode}} {{achievement.moduleCrp}}Crp</ion-text>
+          <ion-text class="additional-info">{{achievement.moduleCode}} {{achievement.moduleCrp}}Crp</ion-text>
         </div>
         <div class="end-content">
           <ion-text>{{achievement.grade}}%</ion-text>

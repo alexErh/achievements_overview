@@ -12,3 +12,30 @@
 .end-content {
     white-space: nowrap;
 }
+
+.additional-info {
+    color: gray;
+    text-size-adjust: 2px;
+}
+
+.item-stats-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 0;
+}
+
+.stats-start-content {
+    margin-top: 5%;
+    flex: 1;
+}
+
+.stats-end-content {
+    white-space: nowrap;
+}
+
+.details-button {
+    text-transform: none;
+    margin: 0;
+}

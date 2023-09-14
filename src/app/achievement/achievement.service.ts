@@ -12,7 +12,9 @@ export class AchievementService {
 
   constructor(private fireStore: Firestore) {
     this.achievementsRef = collection(this.fireStore, 'achievements');
-    this.getAchievements();
+    /* this.getAchievements()
+    .then(() => console.log('got it'))
+    .catch(() => console.log('didn\'t got it')); */
   }
 
   async getAchievements(): Promise<void> {

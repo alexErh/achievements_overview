@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { AchievementService } from '../achievement.service';
 import { Achievement } from '../achievement.model';
+import { StatisticData } from '../statistic-data.model';
 
 @Component({
   selector: 'app-achievement-list',
@@ -11,21 +13,24 @@ import { Achievement } from '../achievement.model';
 export class AchievementListPage{
 
   public achievements: Achievement[] = [];
+  public stats: StatisticData = new StatisticData(this.achievements);
 
   constructor(
     private router: Router,
-    private achievementService: AchievementService
+    private achievementService: AchievementService,
+    private alertController: AlertController
   ) {
-    this.getAll();
+    this.achievementService.getAchievements().then(() => this.getAll());
   }
 
   public navigateToCreateView(): void {
     this.router.navigate(['achievement-details']);
   }
 
-  public refresh(event: any) {
+  public refresh(event: any): void {
     setTimeout(() => {
       this.getAll();
+      this.stats = new StatisticData(this.achievements);
       event.target.complete();
     }, 2000);
   }
@@ -33,8 +38,25 @@ export class AchievementListPage{
   public async getAll() {
     this.achievementService.getAll().then((res) => {
       this.achievements = res;
+      this.stats = new StatisticData(res);
     });
   }
 
+  public async schowStats(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Statistik',
+      message: `
+        <p>Zusammenfassung zu den <b>${this.stats.achievementCount}</b> erbrachten Leistungen: </p>
+        <ul>
+          <li>50%-Leistungen: <b>${this.stats.hwCount}</b></li>
+          <li>Gesammelte CrPs: <b>${this.stats.summCrP}</b></li>
+          <li>CrPs bis 180 CrPs: <b>${this.stats.crpToGet}</b></li>
+          <li>Gesamtnote: <b>${this.stats.averageGrade}%</b></li>
+        </ul>
+      `,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
 }
