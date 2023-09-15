@@ -5,6 +5,8 @@ import { AchievementService } from '../achievement.service';
 import { Achievement } from '../achievement.model';
 import { StatisticData } from '../statistic-data.model';
 
+import { ModuleService } from '../../module/module.service';
+
 @Component({
   selector: 'app-achievement-list',
   templateUrl: './achievement-list.page.html',
@@ -18,7 +20,8 @@ export class AchievementListPage{
   constructor(
     private router: Router,
     private achievementService: AchievementService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private moduleService: ModuleService
   ) {
     this.achievementService.getAchievements().then(() => this.getAll());
   }

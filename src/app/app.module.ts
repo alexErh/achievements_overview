@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { provideHttpClient } from '@angular/common/http'
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
@@ -21,7 +21,14 @@ import { AchievementService } from './achievement/achievement.service';
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
     //provideAuth(() => getAuth()), 
     provideFirestore(() => getFirestore())],
-  providers: [AchievementService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    provideHttpClient(),
+    AchievementService, 
+    { 
+      provide: RouteReuseStrategy, 
+      useClass: IonicRouteStrategy 
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -23,7 +23,7 @@ export class AchievementService {
       this.achievements.push({...achievementDoc.data(), id: achievementDoc.id} as Achievement);
     });
 
-    this.arrangeAlphabetically();
+    this.sortAlphabetically();
   }
 
   public getAll(): Promise<Achievement[]> {
@@ -31,13 +31,13 @@ export class AchievementService {
   }
 
   public getByID(id: string): Promise<Achievement|undefined> {
-    return Promise.resolve(this.achievements.find(a => a.id == id));
+    return Promise.resolve(this.achievements.find(a => a.id === id));
   }
 
   //create
   public post(achievement: Achievement): Promise<DocumentData> {
     this.achievements.push(achievement);
-    this.arrangeAlphabetically();
+    this.sortAlphabetically();
     return addDoc(this.achievementsRef, {
       moduleCode: achievement.moduleCode,
       moduleName: achievement.moduleName,
@@ -54,18 +54,18 @@ export class AchievementService {
     const index = this.achievements.findIndex(a => a.id === achievement.id);
     if (index > -1) {
       this.achievements[index] = achievement;
-      this.arrangeAlphabetically();      
+      this.sortAlphabetically();      
     }
     const achievementRef = doc(this.achievementsRef, achievement.id!);
-      return updateDoc(achievementRef, {
-        moduleCode: achievement.moduleCode,
-        moduleName: achievement.moduleName,
-        moduleCrp: achievement.moduleCrp,
-        grade: achievement.grade,
-        halfWeighted: achievement.halfWeighted,
-        summerSem: achievement.summerSem,
-        year: achievement.year,
-      });
+    return updateDoc(achievementRef, {
+      moduleCode: achievement.moduleCode,
+      moduleName: achievement.moduleName,
+      moduleCrp: achievement.moduleCrp,
+      grade: achievement.grade,
+      halfWeighted: achievement.halfWeighted,
+      summerSem: achievement.summerSem,
+      year: achievement.year,
+    });
   }
 
   public delete(index: number): Promise<void> {
@@ -78,7 +78,7 @@ export class AchievementService {
     return deleteDoc(achievementRef);
   }
 
-  private arrangeAlphabetically(): void {
+  private sortAlphabetically(): void {
     if (this.achievements.length > 1) {
       this.achievements = this.achievements.sort((achi_1, achi_2) => achi_1.moduleName!.localeCompare(achi_2.moduleName!))
     }
